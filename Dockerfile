@@ -28,6 +28,7 @@ RUN dotnet publish "./WebApplication3.csproj" -c $BUILD_CONFIGURATION -o /app/pu
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+USER root
 RUN mkdir -p /app/wwwroot && chmod -R 777 /app/wwwroot
 RUN chown -R $APP_UID /app/wwwroot
 ENTRYPOINT ["dotnet", "WebApplication3.dll"]
